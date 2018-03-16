@@ -1,0 +1,62 @@
+tmp/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.elf
+*.ko
+*.lo
+*.o
+*.obj
+*.slo
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Static libraries
+*.a
+*.la
+*.lai
+*.lib
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+# Compiled Dynamic libraries
+*.dll
+*.dylib
+*.so
+*.so.*
+
+# Fortran module files
+*.mod
+*.smod
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
