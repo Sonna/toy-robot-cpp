@@ -15,7 +15,7 @@ TESTTARGET=test
 
 SRCS=src/hello_world.c
 OBJS=$(subst .c,.o,$(SRCS))
-TESTSRCS=$(subst .c,_test.cpp,$(SRCS))
+TESTSRCS=$(subst .c,_test.cpp,$(SRCS)) src/test_helpers.c
 TESTOBJS=$(subst .cpp,.o,$(TESTSRCS))
 
 .PHONY: default all clean
