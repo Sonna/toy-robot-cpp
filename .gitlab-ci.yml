@@ -1,13 +1,19 @@
 image: "sonna/googletest:latest"
 
-test:
-  script:
-  - make test
+stages:
+  - build
+  - test
 
 build:
+  stage: build
   script:
   - make
   artifacts:
     expire_in: 1 week
     paths:
     - bin/main
+
+test:
+  stage: test
+  script:
+  - make test
