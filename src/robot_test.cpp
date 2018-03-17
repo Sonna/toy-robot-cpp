@@ -182,6 +182,24 @@ TEST(RobotTest, MoveDoesNotFallOffTableAt40SOUTH) {
     ASSERT_STREQ(subject->facing().c_str(), "SOUTH");
 }
 
+TEST(RobotTest, Place) {
+    Robot* subject = new Robot;
+    subject->place("4,2,SOUTH");
+
+    ASSERT_EQ(subject->x(), 4);
+    ASSERT_EQ(subject->y(), 2);
+    ASSERT_STREQ(subject->facing().c_str(), "SOUTH");
+}
+
+TEST(RobotTest, PlaceAt23EAST) {
+    Robot* subject = new Robot;
+    subject->place("2,3,EAST");
+
+    ASSERT_EQ(subject->x(), 2);
+    ASSERT_EQ(subject->y(), 3);
+    ASSERT_STREQ(subject->facing().c_str(), "EAST");
+}
+
 
 int main(int argc, char** argv)
 {

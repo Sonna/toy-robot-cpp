@@ -1,4 +1,7 @@
 #include <iostream>
+#include <sstream>
+#include <vector>
+
 #include "robot.h"
 
 using namespace std;
@@ -39,8 +42,21 @@ void Robot::move() {
     }
 }
 
-void Robot::place(const string coordinates) {
+void Robot::place(const string raw_coordinates) {
+    vector<string> coordinates;
+    stringstream ss(raw_coordinates);
+    string coordinate;
+    char delim = ',';
 
+    while (getline(ss, coordinate, delim)) {
+        coordinates.push_back(coordinate);
+    }
+
+    if (coordinates.size() < 3) { return; }
+
+    _x = stoi(coordinates[0]);
+    _y = stoi(coordinates[1]);
+    _facing = coordinates[2];
 }
 
 void Robot::exec(const string raw_command, const string raw_args) {
