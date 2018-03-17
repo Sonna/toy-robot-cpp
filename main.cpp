@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    ToyRobot::Robot robot;
+    toy_robot::Robot robot;
     robot.report();
     return 0;
 }
