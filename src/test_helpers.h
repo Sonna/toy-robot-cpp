@@ -13,6 +13,16 @@
 #include "gtest/gtest.h"
 
 const char * capture_output(std::function<void()> block);
+// const char * capture_output(std::function<void(const std::string args)> block);
+// const char * capture_output2(std::function<void(const std::string args)> block);
+const char * capture_output(
+    // std::function<void()> block,
+    std::function<void(const std::string command, const std::string args)> block,
+    const std::string command,
+    const std::string args
+);
+// const char * capture_output2(std::function<void(const std::string args)> block, const std::string args);
+// const char * capture_output(std::function<void()> block, const std::string args);
 // const char * capture_output(void (*block)());
 
 #endif

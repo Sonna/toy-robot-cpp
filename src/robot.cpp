@@ -1,5 +1,7 @@
+#include <functional>
 #include <iostream>
 #include <sstream>
+#include <unordered_map>
 #include <vector>
 
 #include "robot.h"
@@ -60,7 +62,39 @@ void Robot::place(const string raw_coordinates) {
 }
 
 void Robot::exec(const string raw_command, const string raw_args) {
+    // switch (raw_command) {
+    //     case "REPORT":
+    //         report();
+    //         break;
+    //     case "LEFT":
+    //         left();
+    //         break;
+    //     case "RIGHT":
+    //         right();
+    //         break;
+    //     case "MOVE":
+    //         move();
+    //         break;
+    //     case "PLACE":
+    //         place(raw_args);
+    //         break;
+    //     default:
+    //         // Do Nothing
+    //         break;
+    // }
 
+    const unordered_map<string,function<void(const string)>> commands = {
+        {"REPORT", [&](const string args){ report(); }},
+        {"LEFT",   [&](const string args){ left(); }},
+        {"RIGHT",  [&](const string args){ right(); }},
+        {"MOVE",   [&](const string args){ move(); }},
+        {"PLACE",  [&](const string args){ place(args); }}
+    };
+    const auto end = commands.end();
+    auto it = commands.find(raw_command);
+    if (it != end) {
+        it->second(raw_args);
+    }
 }
 
 }

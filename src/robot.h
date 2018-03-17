@@ -22,8 +22,8 @@ public:
     void left();
     void right();
     void move();
-    void place(const std::string coordinates);
-    void exec(const std::string raw_command, const std::string raw_args);
+    void place(const std::string raw_coordinates);
+    void exec(const string raw_command, const string raw_args = "");
 
     inline const int x() const { return _x; }
     inline const int y() const { return _y; }

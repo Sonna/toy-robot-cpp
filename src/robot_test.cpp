@@ -200,6 +200,27 @@ TEST(RobotTest, PlaceAt23EAST) {
     ASSERT_STREQ(subject->facing().c_str(), "EAST");
 }
 
+TEST(RobotTest, ExecReport) {
+    Robot* subject = new Robot;
+    string command = "REPORT";
+    string args = "REPORT";
+    // auto function_pointer = std::bind(&Robot::exec, *subject, command, args);
+    auto function_pointer = std::bind(&Robot::exec, *subject, placeholders::_1, placeholders::_2);
+    // auto function_pointer = std::bind(&Robot::exec, *subject);
+    // auto function_pointer = std::bind(&Robot::exec, *subject);
+    // auto function_pointer = std::bind(&Robot::exec, *subject, "REPORT", "");
+
+    // const char* stdout_contents = capture_output(function_pointer);
+    // const char* stdout_contents = capture_output(function_pointer, "REPORT");
+    const char* stdout_contents = capture_output(function_pointer, command, args);
+    const char* expected_output = "0,0,NORTH\n";
+    EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "NORTH");
+}
+
 
 int main(int argc, char** argv)
 {
