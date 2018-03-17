@@ -6,7 +6,8 @@
 TEST(HelloWorldTest, PrintHelloWorld) {
   const char* stdout_contents = capture_output(hello_world);
   const char* expected_output = "Hello World\n";
-  EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+
+  ASSERT_STREQ(stdout_contents, expected_output);
 }
 
 TEST(StrcmpTest, strcmp) {
