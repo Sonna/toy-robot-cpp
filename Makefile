@@ -13,10 +13,12 @@ TESTLIBS=-lgtest
 TARGET=main
 TESTTARGET=test
 
-SRCS=src/hello_world.c
-OBJS=$(subst .c,.o,$(SRCS))
-TESTSRCS=$(subst .c,_test.cpp,$(SRCS)) src/test_helpers.c
-TESTOBJS=$(subst .cpp,.o,$(TESTSRCS))
+# SRCS=src/hello_world.c
+SRCS=src/robot.cpp
+OBJS=$(subst .c,.o,$(SRCS)) $(subst .cpp,.o,$(SRCS))
+TESTSRCS=$(SRCS) $(subst .cpp,_test.cpp,$(SRCS)) src/test_helpers.cpp
+TESTOBJS=$(subst .cpp,.o,$(TESTSRCS)) src/robot_test.o src/test_helpers.o
+# TESTOBJS=$(subst .c,_test.o,$(SRCS)) $(subst .cpp,_test.o,$(SRCS)) src/test_helpers.o
 
 .PHONY: default all clean
 

@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <iostream>
 
-const char * capture_output(void (*block)()) {
+// const char * capture_output(void (*block)()) {
+const char * capture_output(std::function<void()> block) {
   char *stdout_contents;
   long temp_out_size;
   int stdout_dupfd;
@@ -21,7 +22,7 @@ const char * capture_output(void (*block)()) {
 
   /* output something... */
   // printf("Hello World\n");
-  (*block)();
+  block();
 
   /* flush output so it goes to our file */
   fflush(stdout);
