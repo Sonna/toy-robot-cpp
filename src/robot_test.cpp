@@ -218,6 +218,62 @@ TEST(RobotTest, ExecReport) {
     ASSERT_STREQ(subject->facing().c_str(), "NORTH");
 }
 
+TEST(RobotTest, ExecLeft) {
+    Robot* subject = new Robot;
+    string command = "LEFT";
+
+    subject->exec(command);
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "WEST");
+}
+
+TEST(RobotTest, ExecRight) {
+    Robot* subject = new Robot;
+    string command = "RIGHT";
+
+    subject->exec(command);
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "EAST");
+}
+
+TEST(RobotTest, ExecMove) {
+    Robot* subject = new Robot;
+    string command = "MOVE";
+
+    subject->exec(command);
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 1);
+    ASSERT_STREQ(subject->facing().c_str(), "NORTH");
+}
+
+TEST(RobotTest, ExecPlace) {
+    Robot* subject = new Robot;
+    string command = "PLACE";
+    string args = "3,3,SOUTH";
+
+    subject->exec(command, args);
+
+    ASSERT_EQ(subject->x(), 3);
+    ASSERT_EQ(subject->y(), 3);
+    ASSERT_STREQ(subject->facing().c_str(), "SOUTH");
+}
+
+TEST(RobotTest, ExecUnkown) {
+    Robot* subject = new Robot;
+    string command = "UNKNOWN";
+    string args = "blahblahblah";
+
+    subject->exec(command, args);
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "NORTH");
+}
 
 int main(int argc, char** argv)
 {
