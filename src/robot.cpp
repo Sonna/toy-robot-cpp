@@ -19,17 +19,24 @@ void Robot::report() const {
 }
 
 void Robot::left() {
-    string left = "LEFT";
-    _facing = kTurn[facing()][left];
+    _facing = kTurn.at(facing()).at("LEFT");
 }
 
 void Robot::right() {
-    string right = "RIGHT";
-    _facing = kTurn[facing()][right];
+    _facing = kTurn.at(facing()).at("RIGHT");
 }
 
 void Robot::move() {
+    _x = x() + kMove.at(facing()).at('x');
+    _y = y() + kMove.at(facing()).at('y');
 
+    if (_x < 0 || _x > 4) {
+        _x = x() - kMove.at(facing()).at('x');
+    }
+
+    if (_y < 0 || _y > 4) {
+        _y = y() - kMove.at(facing()).at('y');
+    }
 }
 
 void Robot::place(const string coordinates) {

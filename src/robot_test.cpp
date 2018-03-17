@@ -78,6 +78,110 @@ TEST(RobotTest, TurnRightWhenFacingWEST) {
     EXPECT_STREQ(subject->facing().c_str(), "NORTH");
 }
 
+TEST(RobotTest, Move) {
+    Robot* subject = new Robot;
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 1);
+}
+
+TEST(RobotTest, MoveEAST) {
+    Robot* subject = new Robot(0, 0, "EAST");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 1);
+    ASSERT_EQ(subject->y(), 0);
+}
+
+TEST(RobotTest, MoveWEST) {
+    Robot* subject = new Robot(1, 1, "WEST");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 1);
+}
+
+TEST(RobotTest, MoveSOUTH) {
+    Robot* subject = new Robot(1, 1, "SOUTH");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 1);
+    ASSERT_EQ(subject->y(), 0);
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt00SOUTH) {
+    Robot* subject = new Robot(0, 0, "SOUTH");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "SOUTH");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt00WEST) {
+    Robot* subject = new Robot(0, 0, "WEST");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "WEST");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt04WEST) {
+    Robot* subject = new Robot(0, 4, "WEST");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 4);
+    ASSERT_STREQ(subject->facing().c_str(), "WEST");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt04NORTH) {
+    Robot* subject = new Robot(0, 4, "NORTH");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 0);
+    ASSERT_EQ(subject->y(), 4);
+    ASSERT_STREQ(subject->facing().c_str(), "NORTH");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt44NORTH) {
+    Robot* subject = new Robot(4, 4, "NORTH");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 4);
+    ASSERT_EQ(subject->y(), 4);
+    ASSERT_STREQ(subject->facing().c_str(), "NORTH");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt44EAST) {
+    Robot* subject = new Robot(4, 4, "EAST");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 4);
+    ASSERT_EQ(subject->y(), 4);
+    ASSERT_STREQ(subject->facing().c_str(), "EAST");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt40EAST) {
+    Robot* subject = new Robot(4, 0, "EAST");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 4);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "EAST");
+}
+
+TEST(RobotTest, MoveDoesNotFallOffTableAt40SOUTH) {
+    Robot* subject = new Robot(4, 0, "SOUTH");
+    subject->move();
+
+    ASSERT_EQ(subject->x(), 4);
+    ASSERT_EQ(subject->y(), 0);
+    ASSERT_STREQ(subject->facing().c_str(), "SOUTH");
+}
+
 
 int main(int argc, char** argv)
 {

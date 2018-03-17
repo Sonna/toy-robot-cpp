@@ -51,6 +51,6 @@ distclean: clean
 	$(RM) bin/$(TARGET)
 
 testclean: clean
-	$(RM) bin/$(TESTTARGET)
+	$(RM) $(OBJS) $(TESTOBJS) bin/$(TESTTARGET)
 
 # http://stackoverflow.com/questions/1484817/how-do-i-make-a-simple-makefile-gcc-unix

@@ -30,11 +30,18 @@ public:
     inline const string facing() const { return _facing; }
 
 private:
-    const map<string, map<string, string>> const kTurn = {
+    const map<string, map<string, string>> kTurn = {
         {"NORTH", {{"LEFT", "WEST"}, {"RIGHT", "EAST"}}},
         {"SOUTH", {{"LEFT", "EAST"}, {"RIGHT", "WEST"}}},
         {"EAST", {{"LEFT", "NORTH"}, {"RIGHT", "SOUTH"}}},
         {"WEST", {{"LEFT", "SOUTH"}, {"RIGHT", "NORTH"}}}
+    };
+
+    const map<string, map<char, int>> kMove = {
+        {"NORTH", {{'x', 0}, {'y', 1}}},
+        {"SOUTH", {{'x', 0}, {'y', -1}}},
+        {"EAST", {{'x', 1}, {'y', 0}}},
+        {"WEST", {{'x', -1}, {'y', 0}}}
     };
 
     int _x;
