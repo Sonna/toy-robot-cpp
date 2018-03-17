@@ -2,7 +2,6 @@
 
 int main(int argc, char** argv)
 {
-    toy_robot::Robot robot;
-    robot.report();
-    return 0;
+    int result = toy_robot::run(argc, argv);
+    return result;
 }

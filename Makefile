@@ -15,7 +15,7 @@ TESTTARGET=test
 
 # SRCS=src/hello_world.c
 SRCS=src/robot.cpp
-OBJS=$(subst .c,.o,$(SRCS)) $(subst .cpp,.o,$(SRCS))
+OBJS=$(addsuffix .o,$(basename $(SRCS)))
 TESTSRCS=$(SRCS) $(subst .cpp,_test.cpp,$(SRCS)) src/test_helpers.cpp
 TESTOBJS=$(subst .cpp,.o,$(TESTSRCS)) src/robot_test.o src/test_helpers.o
 # TESTOBJS=$(subst .c,_test.o,$(SRCS)) $(subst .cpp,_test.o,$(SRCS)) src/test_helpers.o
@@ -36,7 +36,7 @@ all: default
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 
-main: main.o $(OBJ)
+main: main.o
 	$(CXX) -o bin/$@ $^ $(CXXFLAGS) $(LDLIBS)
 
 
@@ -48,7 +48,7 @@ clean:
 	$(RM) $(OBJS)
 
 distclean: clean
-	$(RM) bin/$(TARGET)
+	$(RM) main.o bin/$(TARGET)
 
 testclean: clean
 	$(RM) $(OBJS) $(TESTOBJS) bin/$(TESTTARGET)

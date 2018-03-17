@@ -1,3 +1,4 @@
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <sstream>
@@ -95,6 +96,61 @@ void Robot::exec(const string raw_command, const string raw_args) {
     if (it != end) {
         it->second(raw_args);
     }
+}
+
+int run(int argc, char** argv) {
+    Robot * robot = new Robot();
+
+    string raw_line;
+    istringstream line;
+    vector<string> words = {""}; // initial with single value for `cin` input
+    string word;
+
+    // cout << argc << argv << endl;
+
+    if (argc > 1) {
+        char* filename = argv[1];
+        ifstream file(filename);
+        // file.open(filename, ios::in);
+
+        // while(!file.eof()) {
+
+        while(getline(file, raw_line)) {
+            // getline(file, raw_line);
+            istringstream line(raw_line);
+
+            words.clear();
+            while (getline(line, word, ' ')) {
+                words.push_back(word);
+            }
+
+            if (words.size() > 1) {
+                robot->exec(words[0], words[1]);
+            } else {
+                robot->exec(words[0]);
+            }
+        }
+
+        file.close();
+    } else {
+        while(strncmp(words[0].c_str(), "EXIT", 4) != 0) {
+            getline(cin, raw_line);
+            istringstream line(raw_line);
+
+            words.clear();
+            while (getline(line, word, ' ')) {
+                words.push_back(word);
+            }
+
+            if (words.size() > 1) {
+                robot->exec(words[0], words[1]);
+            } else {
+                robot->exec(words[0]);
+            }
+        }
+    }
+
+    return 0;
 }
 
 }

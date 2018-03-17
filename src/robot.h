@@ -1,8 +1,9 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
-#include <string>
 #include <map>
+#include <string>
+
 using namespace std;
 
 namespace toy_robot {
@@ -48,6 +49,8 @@ private:
     int _y;
     string _facing;
 };
+
+int run(int argc, char** argv);
 
 }
 
