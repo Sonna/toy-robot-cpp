@@ -2,6 +2,7 @@
 #include <functional>
 #include <iostream>
 #include <sstream>
+#include <string.h>
 #include <unordered_map>
 #include <vector>
 
@@ -106,17 +107,11 @@ int run(int argc, char** argv) {
     vector<string> words = {""}; // initial with single value for `cin` input
     string word;
 
-    // cout << argc << argv << endl;
-
     if (argc > 1) {
         char* filename = argv[1];
         ifstream file(filename);
-        // file.open(filename, ios::in);
-
-        // while(!file.eof()) {
 
         while(getline(file, raw_line)) {
-            // getline(file, raw_line);
             istringstream line(raw_line);
 
             words.clear();
@@ -133,8 +128,7 @@ int run(int argc, char** argv) {
 
         file.close();
     } else {
-        while(strncmp(words[0].c_str(), "EXIT", 4) != 0) {
-            getline(cin, raw_line);
+        while(getline(cin, raw_line) && strncmp(raw_line.c_str(), "EXIT", 4) != 0) {
             istringstream line(raw_line);
 
             words.clear();
