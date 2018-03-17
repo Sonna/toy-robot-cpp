@@ -2,15 +2,17 @@
 #define ROBOT_H
 
 #include <string>
+#include <map>
+using namespace std;
 
-namespace ToyRobot {
+namespace toy_robot {
 
 class Robot
 {
 public:
     Robot(const int x = 0,
           const int y = 0,
-          const std::string facing = "NORTH"):
+          const string facing = "NORTH"):
             _x(x),
             _y(y),
             _facing(facing) {};
@@ -25,12 +27,19 @@ public:
 
     inline const int x() const { return _x; }
     inline const int y() const { return _y; }
-    inline const std::string facing() const { return _facing; }
+    inline const string facing() const { return _facing; }
 
 private:
+    const map<string, map<string, string>> const kTurn = {
+        {"NORTH", {{"LEFT", "WEST"}, {"RIGHT", "EAST"}}},
+        {"SOUTH", {{"LEFT", "EAST"}, {"RIGHT", "WEST"}}},
+        {"EAST", {{"LEFT", "NORTH"}, {"RIGHT", "SOUTH"}}},
+        {"WEST", {{"LEFT", "SOUTH"}, {"RIGHT", "NORTH"}}}
+    };
+
     int _x;
     int _y;
-    std::string _facing;
+    string _facing;
 };
 
 }

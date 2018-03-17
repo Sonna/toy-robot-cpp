@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace ToyRobot {
+namespace toy_robot {
 
 // Constructor
 // Robot::Robot(const int x, const int y, const std::string facing): _x(x), _y(y), _facing(facing) {
@@ -19,11 +19,13 @@ void Robot::report() const {
 }
 
 void Robot::left() {
-
+    string left = "LEFT";
+    _facing = kTurn[facing()][left];
 }
 
 void Robot::right() {
-
+    string right = "RIGHT";
+    _facing = kTurn[facing()][right];
 }
 
 void Robot::move() {
