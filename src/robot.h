@@ -50,7 +50,7 @@ private:
     string _facing;
 };
 
-int run(int argc, char** argv);
+int run(char** argv);
 
 }
 

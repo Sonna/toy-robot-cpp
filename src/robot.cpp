@@ -99,7 +99,7 @@ void Robot::exec(const string raw_command, const string raw_args) {
     }
 }
 
-int run(int argc, char** argv) {
+void process(istream* input) {
     Robot * robot = new Robot();
 
     string raw_line;
@@ -107,41 +107,33 @@ int run(int argc, char** argv) {
     vector<string> words = {""}; // initial with single value for `cin` input
     string word;
 
-    if (argc > 1) {
-        char* filename = argv[1];
-        ifstream file(filename);
+    while(getline(*input, raw_line) && strncmp(raw_line.c_str(), "EXIT", 4) != 0) {
+        istringstream line(raw_line);
 
-        while(getline(file, raw_line)) {
-            istringstream line(raw_line);
-
-            words.clear();
-            while (getline(line, word, ' ')) {
-                words.push_back(word);
-            }
-
-            if (words.size() > 1) {
-                robot->exec(words[0], words[1]);
-            } else {
-                robot->exec(words[0]);
-            }
+        words.clear();
+        while (getline(line, word, ' ')) {
+            words.push_back(word);
         }
 
+        if (words.size() > 1) {
+            robot->exec(words[0], words[1]);
+        } else {
+            robot->exec(words[0]);
+        }
+    }
+
+    // Close file if istream is a file and open
+    // ifstream * filestream = static_cast<std::ifstream*>(input);
+    // if (filestream->is_open()) { filestream->close(); }
+}
+
+int run(char** argv) {
+    if (argv[1]) {
+        ifstream file(argv[1]);
+        process(&file);
         file.close();
     } else {
-        while(getline(cin, raw_line) && strncmp(raw_line.c_str(), "EXIT", 4) != 0) {
-            istringstream line(raw_line);
-
-            words.clear();
-            while (getline(line, word, ' ')) {
-                words.push_back(word);
-            }
-
-            if (words.size() > 1) {
-                robot->exec(words[0], words[1]);
-            } else {
-                robot->exec(words[0]);
-            }
-        }
+        process(&cin);
     }
 
     return 0;
