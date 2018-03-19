@@ -275,6 +275,63 @@ TEST(RobotTest, ExecUnkown) {
     ASSERT_STREQ(subject->facing().c_str(), "NORTH");
 }
 
+TEST(toy_robotTest, RunExampleA) {
+    char* subject[] =  {strdup("bin/main"), strdup("examples/example_a.txt")};
+    auto function_pointer = [&]() { run(subject); };
+
+    const char* stdout_contents = capture_output(function_pointer);
+    const char* expected_output = "0,0,NORTH\n";
+
+    EXPECT_STREQ(stdout_contents, expected_output);
+    EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+}
+
+TEST(toy_robotTest, RunExampleB) {
+    char* subject[] =  {strdup("bin/main"), strdup("examples/example_b.txt")};
+    auto function_pointer = [&]() { run(subject); };
+
+    const char* stdout_contents = capture_output(function_pointer);
+    const char* expected_output = "0,0,WEST\n";
+
+    EXPECT_STREQ(stdout_contents, expected_output);
+    EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+}
+
+TEST(toy_robotTest, RunExampleC) {
+    char* subject[] =  {strdup("bin/main"), strdup("examples/example_c.txt")};
+    auto function_pointer = [&]() { run(subject); };
+
+    const char* stdout_contents = capture_output(function_pointer);
+    const char* expected_output = "3,3,NORTH\n";
+
+    EXPECT_STREQ(stdout_contents, expected_output);
+    EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+}
+
+TEST(toy_robotTest, ProcessIstream) {
+    istringstream subject_string("REPORT\nEXIT\n");
+    istream subject(subject_string.rdbuf());
+    auto function_pointer = [&]() { toy_robot::process(&subject); };
+
+    const char* stdout_contents = capture_output(function_pointer);
+    const char* expected_output = "0,0,NORTH\n";
+
+    EXPECT_STREQ(stdout_contents, expected_output);
+    EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+}
+
+TEST(toy_robotTest, ProcessIstreamComplex) {
+    istringstream subject_string("PLACE 1,2,EAST\nREPORT\nMOVE\nMOVE\nREPORT\nLEFT\nMOVE\nREPORT\nEXIT\n");
+    istream subject(subject_string.rdbuf());
+    auto function_pointer = [&]() { toy_robot::process(&subject); };
+
+    const char* stdout_contents = capture_output(function_pointer);
+    const char* expected_output = "1,2,EAST\n3,2,EAST\n3,3,NORTH\n";
+
+    EXPECT_STREQ(stdout_contents, expected_output);
+    EXPECT_EQ(0, strncmp(stdout_contents, expected_output, strlen(expected_output)));
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);

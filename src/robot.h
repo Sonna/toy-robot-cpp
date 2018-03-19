@@ -50,6 +50,7 @@ private:
     string _facing;
 };
 
+void process(istream* input);
 int run(char** argv);
 
 }

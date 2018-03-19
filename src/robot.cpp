@@ -121,10 +121,6 @@ void process(istream* input) {
             robot->exec(words[0]);
         }
     }
-
-    // Close file if istream is a file and open
-    // ifstream * filestream = static_cast<std::ifstream*>(input);
-    // if (filestream->is_open()) { filestream->close(); }
 }
 
 int run(char** argv) {
