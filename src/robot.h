@@ -1,16 +1,19 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
+#include <map>
 #include <string>
 
-namespace ToyRobot {
+using namespace std;
+
+namespace toy_robot {
 
 class Robot
 {
 public:
     Robot(const int x = 0,
           const int y = 0,
-          const std::string facing = "NORTH"):
+          const string facing = "NORTH"):
             _x(x),
             _y(y),
             _facing(facing) {};
@@ -20,18 +23,35 @@ public:
     void left();
     void right();
     void move();
-    void place(const std::string coordinates);
-    void exec(const std::string raw_command, const std::string raw_args);
+    void place(const std::string raw_coordinates);
+    void exec(const string raw_command, const string raw_args = "");
 
     inline const int x() const { return _x; }
     inline const int y() const { return _y; }
-    inline const std::string facing() const { return _facing; }
+    inline const string facing() const { return _facing; }
 
 private:
+    const map<string, map<string, string>> kTurn = {
+        {"NORTH", {{"LEFT", "WEST"}, {"RIGHT", "EAST"}}},
+        {"SOUTH", {{"LEFT", "EAST"}, {"RIGHT", "WEST"}}},
+        {"EAST", {{"LEFT", "NORTH"}, {"RIGHT", "SOUTH"}}},
+        {"WEST", {{"LEFT", "SOUTH"}, {"RIGHT", "NORTH"}}}
+    };
+
+    const map<string, map<char, int>> kMove = {
+        {"NORTH", {{'x', 0}, {'y', 1}}},
+        {"SOUTH", {{'x', 0}, {'y', -1}}},
+        {"EAST", {{'x', 1}, {'y', 0}}},
+        {"WEST", {{'x', -1}, {'y', 0}}}
+    };
+
     int _x;
     int _y;
-    std::string _facing;
+    string _facing;
 };
+
+void process(istream* input);
+int run(char** argv);
 
 }
 
