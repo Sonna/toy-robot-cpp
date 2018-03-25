@@ -1,0 +1,13 @@
+sudo: required
+
+language: cpp
+
+services:
+- docker
+
+before_install:
+- docker pull sonna/googletest
+
+script:
+- docker run --rm -v $(pwd):/app -w /app sonna/googletest bash -c "make distclean; make"
+- docker run --rm -v $(pwd):/app -w /app sonna/googletest bash -c "make testclean; make test"
